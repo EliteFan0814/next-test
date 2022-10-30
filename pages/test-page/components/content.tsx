@@ -1,7 +1,9 @@
 import { NextPage } from "next";
 import React from "react";
-
-const Content: NextPage = (props) => {
+type Props = {
+  title: string;
+};
+const Content: NextPage<Props> = (props) => {
   const [likes, setLikes] = React.useState(0);
   const nameList = [
     { id: 0, name: "范佩西" },

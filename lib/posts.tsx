@@ -18,7 +18,29 @@ const getPostFilesList = async () => {
       date,
     };
   });
-  return posts;
+  return JSON.parse(JSON.stringify(posts));
 };
 
 export default getPostFilesList;
+
+export const getPost = async (id: string) => {
+  const markdownDir = path.join(process.cwd(), "markdown");
+  const nowPosArticle = path.join(markdownDir, `${id}.md`);
+  const articleContent = fs.readFileSync(nowPosArticle, "utf-8");
+  const {
+    data: { title, date },
+    content,
+  } = matter(articleContent);
+  return JSON.parse(
+    JSON.stringify({
+      title,
+      date,
+      content,
+    })
+  );
+};
+
+export const getPostId = async ()=>{
+  const markdownDir = path.join(process.cwd(), "markdown");
+  const filesNames = await fsPromise.readdir(markdownDir);
+}

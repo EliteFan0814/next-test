@@ -1,11 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-type Posts = {
-  name: string;
-  title: string;
-  date: string;
-};
+
 
 export const usePosts = () => {
   const [postsList, setPostList] = useState<Posts[]>([]);
