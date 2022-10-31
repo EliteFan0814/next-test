@@ -25,8 +25,8 @@ export default getPostFilesList;
 
 export const getPost = async (id: string) => {
   const markdownDir = path.join(process.cwd(), "markdown");
-  const nowPosArticle = path.join(markdownDir, `${id}.md`);
-  const articleContent = fs.readFileSync(nowPosArticle, "utf-8");
+  const nowPostArticle = path.join(markdownDir, `${id}.md`);
+  const articleContent = fs.readFileSync(nowPostArticle, "utf-8");
   const {
     data: { title, date },
     content,
@@ -40,7 +40,8 @@ export const getPost = async (id: string) => {
   );
 };
 
-export const getPostId = async ()=>{
+export const getPostIds = async () => {
   const markdownDir = path.join(process.cwd(), "markdown");
   const filesNames = await fsPromise.readdir(markdownDir);
-}
+  return filesNames.map((fileName) => fileName.replace(/\.md$/g, ""));
+};

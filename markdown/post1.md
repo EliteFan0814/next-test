@@ -3,24 +3,93 @@ title: 第一篇博客
 date: 2020-05-08
 ---
 
-那么， 就我个人来说，吃屎对我的意义，不能不说非常重大。 所谓吃屎，关键是吃屎需要
-如何写。 而这些并不是完全重要，更加重要的问题是， 每个人都不得不面对这些问题。
-在面对这种问题时， 吃屎，到底应该如何实现。 问题的关键究竟为何? 邓拓曾经说过，越
-是没有本领的就越加自命不凡。这不禁令我深思。 这种事实对本人来说意义重大，相信对
-这个世界也是有一定意义的。 吃屎的发生，到底需要如何做到，不吃屎的发生，又会如何
-产生。 我们都知道，只要有意义，那么就必须慎重考虑。 一般来说， 我们都知道，只要
-有意义，那么就必须慎重考虑。 一般来说， 迈克尔·F·斯特利在不经意间这样说过，最具
-挑战性的挑战莫过于提升自我。这不禁令我深思。 了解清楚吃屎到底是一种怎么样的存在
-，是解决一切问题的关键。 问题的关键究竟为何? 吃屎，发生了会如何，不发生又会如何
-。 要想清楚，吃屎，到底是一种怎么样的存在。 那么， 莎士比亚在不经意间这样说过，
-人的一生是短的，但如果卑劣地过这一生，就太长了。这不禁令我深思。 带着这些问题，
-我们来审视一下吃屎。 所谓吃屎，关键是吃屎需要如何写。 在这种困难的抉择下，本人思
-来想去，寝食难安。 所谓吃屎，关键是吃屎需要如何写。 吃屎的发生，到底需要如何做到
-，不吃屎的发生，又会如何产生。 本人也是经过了深思熟虑，在每个日日夜夜思考这个问
-题。 现在，解决吃屎的问题，是非常非常重要的。 所以， 本人也是经过了深思熟虑，在
-每个日日夜夜思考这个问题。 经过上述讨论现在，解决吃屎的问题，是非常非常重要的。
-所以， 杰纳勒尔·乔治·S·巴顿在不经意间这样说过，接受挑战，就可以享受胜利的喜悦。
-这启发了我， 吃屎，发生了会如何，不发生又会如何。 吃屎的发生，到底需要如何做到，
-不吃屎的发生，又会如何产生。 我们一般认为，抓住了问题的关键，其他一切则会迎刃而
-解。 爱迪生在不经意间这样说过，失败也是我需要的，它和成功对我一样有价值。我希望
-诸位也能好好地体会这句话。
+## TypeScript interface 接口
+
+接口声明是命名对象类型的另一种方式，是一系列抽象方法的声明，接口定义的方法需要具
+体的类来实现。  
+接口一般首字母大写。有的编程语言中会建议接口的名称加上 I 前缀。
+
+```typescript
+interface IPerson {
+  readonly id: number; // 只读属性
+  firstName: string; // 必传属性
+  lastName: string;
+  age?: number; // 可选属性
+  talk: () => void;
+  run: string | string[] | (() => string); // 联合类型
+  [propName: string]: any; // 任意属性
+}
+
+const person: IPerson = {
+  id: 1,
+  firstName: "屁虫",
+  lastName: "放",
+  run: "我会跑步",
+  talk() {
+    console.log(`我的名字是${this.lastName}${this.firstName}`);
+  },
+  dance() {
+    console.log("我会跳舞");
+  },
+};
+person.talk();
+```
+
+**赋值的时候，变量的形状必须和接口的形状保持一致，属性不能多也不能少，不然会编译
+时报错**  
+**一旦定义了任意属性，那么确定属性和可选属性的类型都必须是它的类型的子集**
+
+### 类实现接口
+
+```typescript
+// 报警器
+interface Alarm {
+  // 报警功能
+  alert(): void;
+  // 监视功能
+  watch(): void;
+}
+// 灯光功能
+interface Light {
+  lightOn(): void;
+  lightOff(): void;
+}
+// 创建 门 类，实现 报警器 功能
+class Door implements Alarm {
+  public static className = "门";
+  public name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+  public alert(): void {
+    console.log("我会报警功能");
+  }
+  public watch(): void {
+    console.log("我会监视功能");
+  }
+}
+
+const door: Door = new Door("盼盼安全门");
+door.alert();
+console.log(Door.className);
+
+// 创建 汽车 类，也实现 报警器 功能
+class Car implements Alarm, Light {
+  public name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+  public alert(): void {
+    console.log("我会报警功能");
+  }
+  public watch(): void {
+    console.log("我会监视车辆安全");
+  }
+  public lightOn(): void {
+    console.log("打开灯光");
+  }
+  public lightOff(): void {
+    console.log("关闭灯光");
+  }
+}
+```
