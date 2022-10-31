@@ -9,7 +9,8 @@ const postContent: NextPage<Props> = (props) => {
     <div>
       <h1>文章内容</h1>
       <h1>{post.title}</h1>
-      <article>{post.content}</article>
+      <article dangerouslySetInnerHTML={{ __html: post.content }}>
+      </article>
     </div>
   );
 };
